@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+$bug: #26de81;
+$dragon: #ffeaa7;
+$electric: #fed330;
+$fairy: #FF0069;
+$fighting: #30336b;
+$fire: #f0932b;
+$flying: #81ecec;
+$grass: #00b894;
+$ground: #EFB549;
+$ghost: #a55eea;
+$ice: #74b9ff;
+$normal: #95afc0;
+$poison: #6c5ce7;
+$psychic: #a29bfe;
+$rock: #2d3436;
+$water: #0190FF;
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Poppins',
+        sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    opacity: 0;
+    -webkit-transition: opacity .4s ease;
+    transition: opacity .4s ease;
+    background-color: #eff3ff;
+    font-size: 1.6rem;
+
+    &.show {
+        opacity: 1;
+    }
+}
+
+.container {
+    width: 35rem;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+#card {
+    position: relative;
+    width: 100%;
+    padding-top: 3rem;
+    -webkit-box-shadow: 0 2rem 3rem rgba(black, .15);
+    box-shadow: 0 2rem 3rem rgba(black, .15);
+    border-radius: 1rem;
+    -webkit-transition: -webkit-transform .5s ease;
+    transition: -webkit-transform .5s ease;
+    transition: transform .5s ease;
+    transition: transform .5s ease, -webkit-transform .5s ease;
+    overflow: hidden;
+    background: white;
+
+    * {
+        position: relative;
+        z-index: 1
+    }
+
+    .circle {
+        position: absolute;
+        top: -30%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        width: 110%;
+        height: 70%;
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    &.hide {
+        -webkit-transition-duration: .2s;
+        transition-duration: .2s;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+
+
+    img {
+        display: block;
+        max-width: 70%;
+        max-height: 20rem;
+        min-height: 20rem;
+        position: relative;
+        margin: 2rem auto;
+    }
+}
+
+
+
+.bug {
+    background: $bug;
+}
+
+.dragon {
+    background: $dragon;
+}
+
+.electric {
+    background: $electric;
+}
+
+.fairy {
+    background: $fairy;
+}
+
+.fighting {
+    background: $fighting;
+}
+
+.fire {
+    background: $fire;
+}
+
+.flying {
+    background: $flying;
+}
+
+.grass {
+    background: $grass;
+}
+
+.ground {
+    background: $ground;
+}
+
+.ghost {
+    background: $ghost;
+}
+
+.ice {
+    background: $ice;
+}
+
+.normal {
+    background: $normal;
+}
+
+.poison {
+    background: $poison;
+}
+
+.psychic {
+    background: $psychic;
+}
+
+.rock {
+    background: $rock;
+}
+
+.water {
+    background: $water;
+}
+
+.hp {
+    width: 8rem;
+    background-color: white;
+    text-align: center;
+    padding: .8rem 0;
+    border-radius: 3rem;
+    margin-left: auto;
+    margin-right: 2rem;
+    font-weight: 400;
+}
+
+.poke-name {
+    text-align: center;
+    font-weight: 500;
+}
+
+.types {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    margin: 2rem 0 4rem;
+
+    span {
+        padding: .5rem 2rem;
+        color: white;
+        border-radius: 2rem;
+
+        &.electric,
+        &.dragon {
+            color: #444;
+        }
+    }
+}
+
+.hp span,
+.types span {
+    font-size: 1.2rem;
+    letter-spacing: .04rem;
+    font-weight: 600;
+}
+
+.stats {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+
+    &.electric,
+    &.dragon {
+        color: #444;
+    }
+}
+
+#btn {
+    display: block;
+    padding: 1.5rem 6rem;
+    font-size: 1.8rem;
+    background-color: #101010;
+    color: white;
+    margin: 3rem auto;
+    border: .1rem solid transparent;
+    border-radius: .5rem;
+    cursor: pointer;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+
+    &:hover {
+        background-color: white;
+        color: #101010;
+        border-color: rgba(#101010, .15);
+    }
+}

@@ -4,7 +4,7 @@ import './webfont.js'
 
 class PokemonCardGenerator {
     DOMElements = {
-        card: document.getElementById('card'),
+        front: document.querySelector('.card__front'),
         btn: document.getElementById('btn')
     }
     constructor() {
@@ -23,18 +23,17 @@ class PokemonCardGenerator {
             btnClick: () => {
                 btn.addEventListener('click', async e => {
                     this.showCard();
-                    await this.promiseResolve(200);
+                    await this.promiseResolve(500);
                     this.getPokemonData(e);
                 });
             },
-            imgLoad(img) {
+            handleEvent(element, event) {
                 return new Promise(resolve => {
-                    img.addEventListener('load', () => {
+                    element.addEventListener(event, () => {
                         resolve();
                     });
                 })
-
-            },
+            }
         }
     }
     promiseResolve(timeout) {
@@ -73,50 +72,56 @@ class PokemonCardGenerator {
             statSpeed = data.stats[5].base_stat,
             color = data.types[0].type.name,
             {
-                card
+                front
             } = this.DOMElements,
             appendTypes = (types) => {
                 return types.map(type => `<span class="${color}">${type.type.name}</span>`).join("");
             };
-        card.innerHTML = `
-            <p class="hp">
-                <span>HP</span>
-                ${hp}
-            </p>
-            <img src="${imgSrc}" alt="${pokeName}">
-            <div class="circle ${color}"></div>
-            <h2 class="poke-name">${pokeName}</h2>
-            <div class="types">
-                ${appendTypes(data.types)}
-            </div>
-            <div class="stats ${color}">
-                <div>
-                    <h3>${statAttack}</h3>
-                    <p>Attack</p>
+        front.innerHTML = `
+                <p class="hp">
+                    <span>HP</span>
+                    ${hp}
+                </p>
+                <img src="${imgSrc}" alt="${pokeName}">
+                <div class="circle ${color}"></div>
+                <h2 class="poke-name">${pokeName}</h2>
+                <div class="types">
+                    ${appendTypes(data.types)}
                 </div>
-                <div>
-                    <h3>${statDefense}</h3>
-                    <p>Defense</p>
+                <div class="stats ${color}">
+                    <div>
+                        <h3>${statAttack}</h3>
+                        <p>Attack</p>
+                    </div>
+                    <div>
+                        <h3>${statDefense}</h3>
+                        <p>Defense</p>
+                    </div>
+                    <div>
+                        <h3>${statSpeed}</h3>
+                        <p>Speed</p>
+                    </div>
                 </div>
-                <div>
-                    <h3>${statSpeed}</h3>
-                    <p>Speed</p>
-                </div>
-            </div>
         `;
-        const img = [...card.children].find(el => el.tagName === 'IMG'),
+        const img = front.querySelector('img'),
             event = e;
-        await this.eventListeners().imgLoad(img);
+        await this.eventListeners().handleEvent(img, 'load');
         event && this.showCard();
 
     }
-    showCard() {
+    async showCard() {
         const {
-            card
-        } = this.DOMElements;
-        if (card.classList.contains('hide')) card.classList.remove('hide');
-        else {
-            card.classList.add('hide')
+            front
+        } = this.DOMElements,
+            cardInner = front.parentElement,
+            cardContainer = cardInner.parentElement;
+        if (cardInner.classList.contains('rotate')) {
+            cardInner.classList.remove('rotate');
+            await this.eventListeners().handleEvent(cardInner, 'transitionend');
+            !cardInner.classList.contains('rotate') && cardContainer.removeAttribute('class');
+        } else {
+            cardContainer.classList.add('perspective');
+            cardInner.classList.add('rotate');
         };
     }
 }
